@@ -1,0 +1,8 @@
+.sidebar
+{
+    height: 100%;
+    width: 350px;
+    background-image: linear-gradient(315deg, #2e2e2e 0%, #2e2e2e 74%);
+    display: flex;
+    justify-content: center;
+}
