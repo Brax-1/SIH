@@ -1,21 +1,8 @@
 import React, { useEffect } from 'react';
-
 import Select from 'react-select';
-
 import axios from 'axios';
-
 import './outside.css'
-
 import { useState } from 'react';
-
-
-
-let mydata = new Set();
-
-
-
-
-
 const options = [
 
   {
@@ -185,53 +172,24 @@ const Optionselect = () => {
     }
 
   }
-
   const addItem = item => {
 
     setState(prev => new Set(prev).add(item));
 
   }
-
-  async function getData()
-  {
+  async function getData() {
+    console.log("runnong")
     const data = await axios({
-
       "method": "GET",
-
       "url": "https://assessment-edvora.herokuapp.com/"
-
     })
-
-      .then((response) => {
-
-        // console.log(response)
-
-        setResponseData(response.data);
-
-        setbrand(response.data);
-
-        response.data.map((data) => {
-
-          addItem(data.brand_name);
-
-        })
-
-        for (const i in state) {
-
-          console.log(i);
-
-        }
-
-        traverse();
-
-      })
-
-      .catch((error) => {
-
-        console.log(error)
-
-      })
-    console.log(state, "MeState1")
+    const ExtractData = await Promise.all(data.data.map((data) => {return data.brand_name}));
+    let uniqueItems = [...new Set(ExtractData)]
+    const finaldata = [];
+    for(let val of uniqueItems){
+      finaldata.push({label:val,value:val});
+    }
+    setunique(finaldata)
   }
 
 
@@ -241,12 +199,6 @@ const Optionselect = () => {
     getData()
 
   }, [])
-
-
-
-  console.log(state, brand);
-
-  // console.log(state.size);
 
 
 
